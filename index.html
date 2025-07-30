@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>VTT Character Display</title>
+
+    <link rel="stylesheet" href="characterDisplay.css">
+
+    <style>
+
+      #allDiv {
+        position: relative;
+        border: solid thin grey;
+        border-radius: 4px;
+        padding: 4px;         /* Keeps content from touching the border */
+        margin: 1px;          /* Adds space around the outside of the border */
+        box-sizing: border-box; /* Ensures padding doesn’t make it overflow */
+        height: 100%;
+
+      }
+
+      #mapDiv {
+        height: 80%;
+        overflow: hidden;
+      }
+
+      #rightHandSide {
+        border: solid thin grey;
+        border-radius: 4px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 40%;
+        height: 95%;
+        background-color: white;
+      }
+
+      #explanation {
+        position: absolute;
+        top: 35%;
+        left: 12%;
+        width: 58%;
+        background-color: #EEECF2;
+        border: solid 2px #4C3270;
+        border-radius: 12px;
+        padding: 12px;
+        z-index: 10;
+      }
+
+      #characterDisplayName {
+        font-size: 140%;
+      }
+
+      .simple-button {
+        padding: 3px 8px; /* tighter padding */
+        font-size: 13px;  /* slightly smaller text */
+        font-family: sans-serif;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        user-select: none;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        margin-bottom: 4px; /* ← this adds spacing between buttons */
+      }
+
+      .simple-button:hover {
+        background-color: #0056b3;
+      }
+
+      .simple-button:active {
+        transform: scale(0.97);
+        background-color: #004999;
+      }
+
+      .toggle-button {
+        padding: 4px 12px;
+        font-size: 13px;
+        font-family: sans-serif;
+        background-color: white;
+        color: #333;
+        border: 1px solid #999;
+        border-radius: 8px;
+        cursor: pointer;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease,
+          border-color 0.3s ease,
+          transform 0.1s ease,
+          border-radius 0.3s ease;
+        user-select: none;
+        line-height: 1.3;
+        margin-bottom: 6px;
+        box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      }
+
+      .toggle-button:hover {
+        background-color: #f8f8f8;
+      }
+
+      .toggle-button:active {
+        transform: scale(0.97);
+      }
+
+      .toggle-button.active {
+        background-color: lemonchiffon;
+        color: #222;
+        border-color: #e6c86f;
+        border-radius: 16px;
+      }
+
+      .toggle-button.active:hover {
+        background-color: #fff3b5;
+      }
+
+
+
+    </style>
+
+    <link href='https://fonts.googleapis.com/css?family=Almendra' rel='stylesheet'>
+
+</head>
+
+
+
+<body onload="">
+
+  <div id='explanation'>
+    mouse over the character sheet at the bottom
+      <button style='float: right;' class='toggle-button' onclick='toggleButton(this)'>Basic Display</button>
+
+    <br>
+    <br>
+    <button class='simple-button' onclick='loadChar(1);'>display Sylvester (sword & shield)</button><br>
+    <button class='simple-button' onclick='loadChar(2);'>display Wally (wizard)</button><br>
+    <button class='simple-button' onclick='loadChar(3);'>display Sir Terental (knight)</button><br>
+    <button class='simple-button' onclick='loadChar(4);'>display Ferny (rogue)</button><br>
+  </div>
+
+  <div id='allDiv'>
+    <div id='mapDiv'>
+      <img src='art/Melee.png' style='max-height: 100%; width: auto; height: auto;'>
+      
+    </div>
+
+    <div id='rightHandSide'>
+      <img src='art/Fantasy Trip Melee Logo 2022.png' style='width:40%'>
+      <br>
+      Various important stuff
+    </div>
+
+    <div id='characterDisplay' onmouseenter='raiseDetails();' onmouseleave='lowerDetails();'>
+
+      <div id='characterDisplayMain'>
+        <div class='ornament _Otopleft'>
+          <div class='gem'></div>
+        </div>
+        <div class='ornament _Otopright'>
+          <div class='gem'></div>
+        </div>
+        <div class='ornament _Obottomright'>
+          <div class='gem'></div>
+        </div>
+        <div class='ornament _Obottomleft'>
+          <div class='gem'></div>
+        </div>
+      
+        <div id='cdmCounter'>
+          <div id="counter-square-wrapper">
+            <div id="counter-square"></div>
+            <div id="counter-overlay-text">
+              Character Name
+            </div>
+          </div>
+        </div>
+
+        <div id='cdmDescription'>
+          description
+        </div>
+
+        <div id='cdmAttributes'>
+          ST: 12
+          <br>
+          DX: 12
+          <br>
+          IQ: 12
+          <br>
+          MA: 12
+          <br>
+          
+        </div>
+
+        <div id='cdmStats'>
+          Wounds:
+          
+        </div>
+
+        <div id='cdmNotes'>
+
+        </div>
+
+
+      </div> <!-- characterDisplayMain -->
+
+      <div id='characterDisplayDetails'>
+        
+        <div id='cdmInventory'>
+          
+        </div>
+
+        <div id='cdmTalents'>
+          
+        </div>
+
+        <div id='cdmStatus'>
+          
+        </div>
+
+        <div id='cdmGM'>
+          
+        </div>
+
+        <div id='cdmLog'>
+          
+        </div>
+
+      </div><!-- <characterDisplayDetails -->
+
+    </div> <!-- characterDisplay -->
+  </div> <!-- allDiv -->
+</body>
+
+
+  <script src="characterDisplay.js"></script>
+  <script>
+    characterJSON=[
+      '{"inventory":[{"type":"armor","class":"Armor","name":"cloth","hits":1,"adjDX":-1,"adjMA":0,"uuid":"0786fab9-a9a2-44bd-aded-db2e7e130be8","display":"cloth","notes":"","ready":true,"count":1},{"type":"shield","class":"Shield","name":"spike shield","hits":1,"adjDX":0,"hands":1,"uuid":"e68a04a5-6ed7-499f-a2a6-a96db257d374","display":"spike shield","notes":"","ready":true,"count":1},{"type":"melee","class":"Fencing","ST":10,"name":"saber","dice":2,"modifier":-2,"hands":1,"uuid":"5d64af7a-f93a-4c38-8811-cc708985e947","display":"saber","notes":"","ready":true,"count":1}],"skills":[{"type":"talent","name":"Sword","IQ":7,"cost":2,"max":1},{"type":"talent","name":"Shield","IQ":7,"cost":1,"max":1},{"type":"talent","name":"Literacy","IQ":8,"cost":1,"max":1},{"type":"talent","name":"Alertness","IQ":9,"cost":2,"max":1},{"type":"talent","name":"Shield Expertise","IQ":10,"cost":2,"max":1,"requires":"Shield"},{"type":"talent","name":"Naturalist","IQ":10,"cost":2,"max":1}],"wounds":[],"effects":[],"gm":{"acted":false,"engaged":false,"hidden":false,"moved":0,"multiplier":1,"shock":false,"state":"standing","action":"none","target":"Evil Ork","shock_value":5,"fall_value":8,"dx_bonus":0,"was_engaged":false,"unmounters":0,"extra_protection":0,"turn_damage_dealt":0,"attack_count":0,"order":0,"fire_damage":0,"path":[],"creator":"Andrew","position":{"row":5,"col":8,"facing":1},"started":{"row":5,"col":8,"facing":0}},"name":"Sylvester","short":"S","race":"human","type":"player","class":"hero","sex":"male","color":"SteelBlue","ST":10,"adjST":10,"DX":12,"adjDX":11,"IQ":10,"adjIQ":10,"MA":10,"adjMA":10,"XP":0,"log":"","protection":3,"hits":0,"turn_hits":2,"fatigue":0,"hands":2,"sequence":2,"uuid":"084ad386-84a4-431a-8b38-c0f0e6c9b696","shape":{"pattern":{"name":"single","hexes":[6],"edges":[[1,1,2,3,2,1]]}}}',
+     '{"inventory":[{"type":"armor","class":"Armor","name":"cloth","hits":1,"adjDX":-1,"adjMA":0,"uuid":"06799e7c-63fc-4113-b4cb-7951926868e5","display":"cloth","notes":"","ready":true,"count":1},{"type":"melee","class":"Club","ST":4,"name":"staff","dice":1,"modifier":0,"hands":1,"slots":0,"mana":0,"uuid":"830acc7b-bf54-42be-95fa-d06b760e4058","display":"staff","notes":"","ready":true,"count":1},{"type":"melee","class":"Knife","ST":4,"name":"dagger","dice":1,"modifier":-1,"hands":1,"thrown":true,"uuid":"7b360a57-57a7-45dd-952b-30c5713ac975","display":"dagger","notes":"silver","ready":false,"count":1,"edge":"normal","poison_dice":0}],"skills":[{"type":"talent","name":"Literacy","IQ":8,"cost":1,"max":1},{"type":"talent","name":"Quarterstaff","IQ":8,"cost":1,"max":1},{"type":"spell","name":"Staff","IQ":8,"cost":1,"max":1,"cast":5,"maintain":0,"kind":"special"},{"type":"spell","name":"Light","IQ":8,"cost":1,"max":1,"cast":1,"maintain":0,"kind":"thrown","duration":17280,"effect":{"renewable":false}},{"type":"spell","name":"Image","IQ":8,"cost":1,"max":1,"cast":1,"maintain":0,"kind":"creation","duration":12,"effect":{"renewable":false}},{"type":"spell","name":"Fire","IQ":9,"cost":1,"max":1,"cast":1,"maintain":0,"kind":"creation","duration":12,"effect":{"renewable":false}},{"type":"spell","name":"Trip","IQ":10,"cost":1,"max":1,"cast":2,"maintain":0,"kind":"thrown"},{"type":"spell","name":"Shadow","IQ":10,"cost":1,"max":1,"cast":1,"maintain":0,"kind":"creation","duration":12,"effect":{"renewable":false}},{"type":"spell","name":"Lock/Knock","IQ":10,"cost":1,"max":1,"cast":2,"maintain":0,"kind":"thrown"}],"wounds":[3,1],"effects":[],"gm":{"acted":false,"engaged":false,"hidden":false,"moved":0,"multiplier":1,"shock":false,"state":"standing","action":"none","target":null,"shock_value":5,"fall_value":8,"dx_bonus":0,"was_engaged":false,"unmounters":0,"extra_protection":0,"turn_damage_dealt":0,"attack_count":0,"order":0,"fire_damage":0,"path":[],"creator":"Andrew","position":{"row":-1,"col":-1,"facing":0},"started":{"row":-1,"col":-1,"facing":0}},"name":"Wally","short":"Wz","race":"human","type":"player","class":"wizard","sex":"male","color":"Plum","ST":10,"adjST":10,"DX":12,"adjDX":11,"IQ":10,"adjIQ":10,"MA":10,"adjMA":10,"XP":0,"log":"Support wizard, handy to have around, little direct attack power. But really handy. ","protection":1,"hits":4,"turn_hits":0,"fatigue":4,"hands":2,"sequence":1,"uuid":"a61a7d11-983a-4b03-9c99-417c407b29fe","shape":{"pattern":{"name":"single","hexes":[6],"edges":[[1,1,2,3,2,1]]}}}',
+      '{"inventory":[{"type":"armor","class":"Armor","name":"chainmail","hits":3,"adjDX":-3,"adjMA":6,"uuid":"e467d62e-49b9-43e3-a8cb-c901ac533649","display":"chainmail","notes":"","ready":true,"count":1},{"type":"shield","class":"Shield","name":"small shield","hits":1,"adjDX":0,"hands":1,"uuid":"ff0c2e9f-fb64-474b-b7df-a17b4ff08a67","display":"small shield","notes":"","ready":true,"count":1},{"type":"melee","class":"Ax/Mace","ST":10,"name":"hammer","dice":2,"modifier":-2,"hands":1,"thrown":true,"uuid":"07dbaa84-74e5-4f1f-a6bc-c3b57a348f22","display":"hammer","notes":"","ready":true,"count":1},{"type":"missile","class":"Missile","ST":10,"name":"horse bow","dice":1,"modifier":0,"hands":2,"uuid":"ab1bfe1c-9ead-47ea-bbc7-5d7b299bb679","display":"horse bow","notes":"","ready":false,"count":1},{"type":"melee","class":"Knife","ST":4,"name":"dagger","dice":1,"modifier":-1,"hands":1,"thrown":true,"uuid":"0b8d685e-f79a-490d-b977-419c34dd760e","display":"dagger","notes":"","ready":false,"count":1}],"skills":[{"type":"talent","name":"Ax/Mace","IQ":7,"cost":2,"max":1},{"type":"talent","name":"Shield","IQ":7,"cost":1,"max":1},{"type":"talent","name":"Carousing","IQ":7,"cost":1,"max":1},{"type":"talent","name":"Bow","IQ":7,"cost":2,"max":1},{"type":"talent","name":"Literacy","IQ":8,"cost":1,"max":1},{"type":"talent","name":"Horsemanship","IQ":8,"cost":1,"max":1}],"wounds":[{"hits":3,"treated":true},{"hits":1,"treated":true},1,2,1],"effects":[],"gm":{"acted":false,"engaged":false,"hidden":false,"moved":0,"multiplier":1,"shock":false,"state":"standing","action":"none","target":null,"shock_value":5,"fall_value":8,"dx_bonus":0,"was_engaged":false,"unmounters":0,"extra_protection":0,"turn_damage_dealt":0,"attack_count":0,"order":0,"fire_damage":0,"path":[],"creator":"Andrew","position":{"row":-1,"col":-1,"facing":0},"started":{"row":-1,"col":-1,"facing":0}},"name":"Sir Terental","short":"S.T","race":"elf","type":"player","class":"hero","sex":"male","color":"DarkOrange","ST":10,"adjST":2,"DX":14,"adjDX":8,"IQ":8,"adjIQ":8,"MA":10,"adjMA":6,"XP":0,"log":"","protection":4,"hits":4,"turn_hits":0,"fatigue":4,"hands":2,"sequence":1,"uuid":"38971d0f-9222-4f59-bbc2-eddf3750a3f5","shape":{"pattern":{"name":"single","hexes":[6],"edges":[[1,1,2,3,2,1]]}}}',
+      `{"inventory":[{"type":"armor","class":"Armor","name":"cloth","hits":1,"adjDX":-1,"adjMA":0,"uuid":"f8b54479-934e-4ba1-b1b2-c1eec08898a4","display":"cloth","notes":"","ready":true,"count":1},{"type":"melee","class":"Unusual","ST":9,"name":"nunchuks","dice":1,"modifier":1,"hands":1,"uuid":"fff244f2-a67a-4836-aa63-0e3d8b5b8257","display":"nunchuks","notes":"","ready":true,"count":1},{"type":"thrown","class":"Unusual","ST":9,"name":"bola","dice":1,"modifier":2,"hands":1,"thrown":true,"uuid":"fcc645dd-1007-4b39-b233-c7bcef7dbea9","display":"bola","notes":"","ready":true,"count":1}],"skills":[{"type":"talent","name":"Thrown Weapons","IQ":8,"cost":2,"max":1},{"type":"talent","name":"Nunchuks","IQ":8,"cost":1,"max":1},{"type":"talent","name":"Bola","IQ":8,"cost":1,"max":1,"requires":"Thrown Weapons"},{"type":"talent","name":"Climbing","IQ":9,"cost":1,"max":1},{"type":"talent","name":"Silent Movement","IQ":9,"cost":2,"max":1},{"type":"talent","name":"Alertness","IQ":9,"cost":2,"max":1}],"wounds":[{"hits":3,"treated":true},{"hits":1,"treated":true},2,2],"effects":[],"gm":{"acted":false,"engaged":false,"hidden":false,"moved":0,"multiplier":1,"shock":false,"state":"fallen","action":"none","target":null,"shock_value":5,"fall_value":8,"dx_bonus":0,"was_engaged":false,"unmounters":0,"extra_protection":0,"turn_damage_dealt":0,"attack_count":0,"order":0,"fire_damage":0,"path":[],"creator":"Andrew","position":{"row":-1,"col":-1,"facing":0},"started":{"row":-1,"col":-1,"facing":0}},"name":"Ferny","short":"F","race":"human","type":"player","class":"hero","sex":"male","color":"Lime","ST":10,"adjST":2,"DX":13,"adjDX":9,"IQ":9,"adjIQ":9,"MA":10,"adjMA":10,"XP":0,"log":"Ferny is an infiltrator with a little punch. He's very sensitive about his lack of education, and skilled and deflecting questions about his past.","protection":1,"hits":4,"turn_hits":0,"fatigue":0,"hands":2,"sequence":1,"uuid":"fc5104f9-f9f1-4938-9a2c-b6b3967f4248","shape":{"pattern":{"name":"single","hexes":[6],"edges":[[1,1,2,3,2,1]]}}}`
+    ];
+    character = JSON.parse( characterJSON[0] );
+    displayCharacter();
+
+    function loadChar( charToLoad ) {
+
+      document.getElementById('characterDisplayDetails').innerHTML = `        
+        <div id='cdmInventory'>
+          
+        </div>
+
+        <div id='cdmTalents'>
+          
+        </div>
+
+        <div id='cdmStatus'>
+          
+        </div>
+
+        <div id='cdmGM'>
+          
+        </div>
+
+        <div id='cdmLog'>
+          
+        </div>
+
+`;
+
+      character = JSON.parse( characterJSON[ charToLoad - 1 ] );
+      displayCharacter(character);
+    }
+
+
+    function toggleButton(button) {
+      const isActive = button.classList.toggle("active");
+
+      if (!isActive) {
+        button.textContent = "Basic Display";
+        // 🔽 trigger your JS action for 'active' state here
+        document.getElementById('characterDisplayName').style.fontFamily='';
+document.querySelectorAll('.cdmAttrName').forEach(el => el.style.fontFamily = "");
+        document.getElementById('characterDisplayMain').style.backgroundColor='';
+      } else {
+        button.textContent = "Fancier Display";
+        // 🔽 trigger your JS action for 'inactive' state here
+
+        document.getElementById("characterDisplayName").style.fontFamily = "'Almendra', serif";
+
+        document.querySelectorAll('.cdmAttrName').forEach(el => el.style.fontFamily = "'Almendra', serif");
+
+
+        document.getElementById('characterDisplayMain').style.backgroundColor='lemonChiffon';
+      }
+    }
+
+  </script>
+
+
+</body>
+</html>

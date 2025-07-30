@@ -1,0 +1,180 @@
+
+
+#characterDisplay {
+	position: absolute;
+	top:85vh;
+	width:100%;
+	background-color: rgba(128, 128, 128, 0.5);
+	transition: all 0.5s ease;
+	box-sizing: border-box;
+}
+
+
+
+#characterDisplayMain {
+	position: relative;
+	height: 13vh;
+	width: 98%;
+	display: flex;
+	border: double;
+	background-color: white;
+	padding: 0.5vh 3vh;
+	box-sizing: border-box;
+
+
+}
+
+#cdmCounter{
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+}
+
+#counter-square-wrapper {
+  position: relative;
+  width: 50px;
+  aspect-ratio: 1 / 1; /* keeps it square */
+}
+
+#counter-square {
+  width: 100%;
+  height: 100%;
+  border: solid thin;
+}
+
+#counter-overlay-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	white-space: nowrap;
+}
+
+
+#cdmDescription{
+	width: 25%;
+
+}
+
+#cdmAttributes{
+	width: 15%;
+}
+
+#cdmStats{
+	width: 20%;
+}
+
+#cdmNotes {
+	width: 30%;
+
+}
+
+
+#characterDisplayDetails {
+	position: relative;
+	left:5%;
+	width: 90%;
+	height: 30vh;
+	border: solid thin;
+	background-color: white;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: nowrap;
+
+}
+
+#cdmInventory {
+	/*flex: 1; */
+
+}
+
+#cdmTalents{
+	/*flex: 1; */
+
+}
+
+#cdmStatus {
+	/*flex: 1; */
+
+}
+
+#cdmGM {
+	/*flex: 1; */
+
+}
+
+#cdmLog {
+	/*flex: 1; */
+	 max-width: 25%;
+}
+
+.ornament {
+	width: 2vh;
+	height: 2vh;
+	border: solid 2px;
+	background-color: whitesmoke;
+	position: absolute;
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+
+._Otopleft{
+	top: 0;
+	left: 0;
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+
+._Otopright{
+	top: 0;
+	right: 0;
+	transform: translate(50%, -50%) rotate(45deg);
+}
+
+._Obottomleft{
+	bottom: 0;
+	left: 0;
+	transform: translate(-50%, 50%) rotate(45deg);
+}
+
+._Obottomright{
+	bottom: 0;
+	right: 0;
+	transform: translate(50%, 50%) rotate(45deg);
+}
+
+
+
+
+.gem {
+  position: absolute;
+  width: 85%;
+  height: 85%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: darkred;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.gem::before,
+.gem::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.gem::before {
+  background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.3), transparent 60%);
+}
+
+.gem::after {
+  background: radial-gradient(circle at 80% 80%, rgba(0,0,0,0.4), transparent 60%);
+}
